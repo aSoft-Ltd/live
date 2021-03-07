@@ -1,6 +1,6 @@
 # Live
 
-![badge][badge-maven] ![badge][badge-mpp] ![badge][badge-android] ![badge][badge-js] ![badge][badge-jvm]
+![badge][badge-maven] ![badge][badge-mpp] ![badge][badge-android] ![badge][badge-js] ![badge][badge-jvm] ![badge][badge-ios]
 
 ## Introduction
 
@@ -37,3 +37,5 @@ this `Live<S>` should only be used in presentational layers. Its main purpose is
 [badge-js]: http://img.shields.io/badge/platform-js-yellow.svg?style=flat
 
 [badge-jvm]: http://img.shields.io/badge/platform-jvm-orange.svg?style=flat
+
+[badge-ios]: http://img.shields.io/badge/platform-ios-silver.svg?style=flat
