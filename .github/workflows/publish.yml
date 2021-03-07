@@ -1,4 +1,4 @@
-name: Build, Test & Publish
+name: Publish
 
 on:
   push:
@@ -9,10 +9,11 @@ env:
   ASOFT_MAVEN_PGP_PASSWORD: ${{ secrets.ASOFT_MAVEN_PGP_PASSWORD }}
   ASOFT_NEXUS_PASSWORD: ${{ secrets.ASOFT_NEXUS_PASSWORD }}
   ASOFT_NEXUS_USERNAME: ${{ secrets.ASOFT_NEXUS_USERNAME }}
+  MACHINE: mac
 
 jobs:
-  deploy-project:
-    runs-on: ubuntu-latest
+  publish-project:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 1.8
@@ -29,15 +30,9 @@ jobs:
       - name: Making gradlew executable
         run: chmod +x ./gradlew
         working-directory: .
-      - name: publishing later-core
-        run: ./gradlew :later-core:publish
-        working-directory: .
-      - name: publishing later-ktx
-        run: ./gradlew :later-ktx:publish
-        working-directory: .
-      - name: publishing later-test-expect
-        run: ./gradlew :later-test-expect:publish
+      - name: publishing
+        run: ./gradlew publish
         working-directory: .
       - name: Closing and Releasing Repositories
-        run: ./gradlew :later-core:closeAndReleaseRepository
+        run: ./gradlew :live-core:closeAndReleaseRepository
         working-directory: .

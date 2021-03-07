@@ -3,10 +3,12 @@ name: Build & Test
 on:
   pull_request:
     branches: [ master-dev ]
+env:
+  MACHINE: mac
 
 jobs:
   build-project:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 1.8
