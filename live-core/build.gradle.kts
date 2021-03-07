@@ -22,7 +22,21 @@ kotlin {
 
         val commonTest by getting {
             dependencies {
-                api(asoft("expect-core", vers.asoft.expect))
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+            }
+        }
+
+        val jvmMain by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(kotlin("test-junit"))
+            }
+        }
+
+        val jsMain by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
             }
         }
 
