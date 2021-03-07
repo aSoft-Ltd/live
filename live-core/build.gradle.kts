@@ -8,10 +8,10 @@ plugins {
 
 kotlin {
     multiplatformLib(withJava = true)
-    val isMac = System.getenv("machine") == "mac"
     js(IR) {
         binaries.library()
     }
+    val isMac = System.getenv("MACHINE") == "mac"
     if (isMac) {
         iosArm64()
         iosArm32()
@@ -31,14 +31,35 @@ kotlin {
                 dependsOn(commonMain)
             }
 
-            val iosArm64 by getting {
+            val nativeTest by creating {
+                dependsOn(nativeMain)
+                dependsOn(commonTest)
+            }
+
+            val iosArm64Main by getting {
                 dependsOn(nativeMain)
             }
-            val iosArm32 by getting {
+
+            val iosArm64Test by getting {
+                dependsOn(iosArm64Main)
+                dependsOn(nativeTest)
+            }
+
+            val iosArm32Main by getting {
                 dependsOn(nativeMain)
             }
-            val iosX64 by getting {
+            val iosArm32Test by getting {
+                dependsOn(iosArm32Main)
+                dependsOn(nativeTest)
+            }
+
+            val iosX64Main by getting {
                 dependsOn(nativeMain)
+            }
+
+            val iosX64Test by getting {
+                dependsOn(iosX64Main)
+                dependsOn(nativeTest)
             }
         }
     }
