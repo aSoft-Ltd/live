@@ -12,6 +12,14 @@ it in android, web, desktop, ios and any place where we can implement declarativ
 While it is true that kotlin can has a SateFlow in the coroutines library, using that from non kotlin code (i.e. Swift
 and JavaScript) needs a lot of wrappers to work
 
+## Setup : Gradle
+
+```kotlin
+dependencies {
+    implementation("tz.co.asoft:live-core:0.0.13")
+}
+```
+
 ## Samples
 
 ```kotlin
@@ -28,7 +36,7 @@ live.value = 3 // console:
 
 this `Live<S>` should only be used in presentational layers. Its main purpose is to just change state for ui
 
-[badge-maven]: https://img.shields.io/maven-central/v/tz.co.asoft/live-core/0.0.12?style=flat
+[badge-maven]: https://img.shields.io/maven-central/v/tz.co.asoft/live-core/0.0.13?style=flat
 
 [badge-mpp]: https://img.shields.io/badge/kotlin-multiplatform-blue?style=flat
 
