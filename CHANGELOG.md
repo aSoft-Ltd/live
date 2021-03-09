@@ -1,5 +1,10 @@
+# 0.0.15 : 2021.02.09
+
+- Added macos targets
+
 # 0.0.14 : 2021.02.09
-- Added support for ios, macos and tv os targets
+
+- Added support for ios, watchos and tvos targets
 - Added support for linux targets
 
 # 0.0.13 : 2021.02.07
