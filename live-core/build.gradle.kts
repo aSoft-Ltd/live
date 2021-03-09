@@ -1,5 +1,4 @@
 plugins {
-//    id("lt.petuska.npm.publish") version "1.1.2"
     kotlin("multiplatform")
     id("tz.co.asoft.library")
     id("io.codearte.nexus-staging")
@@ -8,15 +7,16 @@ plugins {
 
 kotlin {
     multiplatformLib(withJava = true)
-    js(IR) {
-        binaries.library()
-    }
     val isMac = System.getenv("MACHINE") == "mac"
     if (isMac) {
         iosArm64()
         iosArm32()
         iosX64()
     }
+//    linuxArm64, linuxArm32Hfp, linuxMips32, linuxMipsel32, linuxX64
+    linuxArm64()
+    linuxArm32Hfp()
+    linuxX64()
     sourceSets {
         val commonMain by getting {}
 
@@ -40,16 +40,39 @@ kotlin {
             }
         }
 
+        val nativeMain by creating {
+            dependsOn(commonMain)
+        }
+
+        val nativeTest by creating {
+            dependsOn(nativeMain)
+            dependsOn(commonTest)
+        }
+
+        val linuxArm64Main by getting {
+            dependsOn(nativeMain)
+        }
+        val linuxArm32HfpMain by getting {
+            dependsOn(nativeMain)
+        }
+        val linuxX64Main by getting {
+            dependsOn(nativeMain)
+        }
+
+        val linuxArm64Test by getting {
+            dependsOn(nativeMain)
+            dependsOn(nativeTest)
+        }
+        val linuxArm32HfpTest by getting {
+            dependsOn(nativeMain)
+            dependsOn(nativeTest)
+        }
+        val linuxX64Test by getting {
+            dependsOn(nativeMain)
+            dependsOn(nativeTest)
+        }
+
         if (isMac) {
-            val nativeMain by creating {
-                dependsOn(commonMain)
-            }
-
-            val nativeTest by creating {
-                dependsOn(nativeMain)
-                dependsOn(commonTest)
-            }
-
             val iosArm64Main by getting {
                 dependsOn(nativeMain)
             }
@@ -62,6 +85,7 @@ kotlin {
             val iosArm32Main by getting {
                 dependsOn(nativeMain)
             }
+
             val iosArm32Test by getting {
                 dependsOn(iosArm32Main)
                 dependsOn(nativeTest)
@@ -78,17 +102,6 @@ kotlin {
         }
     }
 }
-
-//npmPublishing {
-//    organization = "asoft-ltd"
-//    bundleKotlinDependencies = false
-//    repositories {
-//        repository("npm") {
-//            registry = uri("https://registry.npmjs.org")
-//            authToken = "5a1fa3b1-f226-4b06-a9bc-00fb463909a1"
-//        }
-//    }
-//}
 
 aSoftOSSLibrary(
     version = vers.asoft.live,

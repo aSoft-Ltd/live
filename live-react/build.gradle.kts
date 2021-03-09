@@ -1,5 +1,4 @@
 plugins {
-//    id("lt.petuska.npm.publish") version "1.1.2"
     kotlin("js")
     id("tz.co.asoft.library")
     id("io.codearte.nexus-staging")
@@ -7,10 +6,7 @@ plugins {
 }
 
 kotlin {
-    js(IR) {
-        library()
-        binaries.library()
-    }
+    js(IR) { library() }
     sourceSets {
         val main by getting {
             dependencies {
@@ -25,17 +21,6 @@ kotlin {
         }
     }
 }
-
-//npmPublishing {
-//    organization = "asoft-ltd"
-//    bundleKotlinDependencies = false
-//    repositories {
-//        repository("npm") {
-//            registry = uri("https://registry.npmjs.org")
-//            authToken = "5a1fa3b1-f226-4b06-a9bc-00fb463909a1"
-//        }
-//    }
-//}
 
 aSoftOSSLibrary(
     version = vers.asoft.live,
