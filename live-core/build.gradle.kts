@@ -8,15 +8,23 @@ plugins {
 kotlin {
     multiplatformLib(withJava = true)
     val isMac = System.getenv("MACHINE") == "mac"
-    if (isMac) {
-        iosArm64()
-        iosArm32()
-        iosX64()
-    }
-//    linuxArm64, linuxArm32Hfp, linuxMips32, linuxMipsel32, linuxX64
-    linuxArm64()
-    linuxArm32Hfp()
-    linuxX64()
+    val darwinTargets = if (isMac) listOf(
+        iosArm64(),
+        iosArm32(),
+        iosX64(),
+        watchosArm32(),
+        watchosArm64(),
+        watchosX86(),
+        tvosArm64(),
+        tvosX64()
+    ) else emptyList()
+
+    val linuxTargets = listOf(
+        linuxArm64(),
+        linuxArm32Hfp(),
+        linuxX64()
+    )
+
     sourceSets {
         val commonMain by getting {}
 
@@ -27,14 +35,14 @@ kotlin {
             }
         }
 
-        val jvmMain by getting {
+        val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test"))
                 implementation(kotlin("test-junit"))
             }
         }
 
-        val jsMain by getting {
+        val jsTest by getting {
             dependencies {
                 implementation(kotlin("test-js"))
             }
@@ -49,55 +57,18 @@ kotlin {
             dependsOn(commonTest)
         }
 
-        val linuxArm64Main by getting {
-            dependsOn(nativeMain)
-        }
-        val linuxArm32HfpMain by getting {
-            dependsOn(nativeMain)
-        }
-        val linuxX64Main by getting {
-            dependsOn(nativeMain)
-        }
-
-        val linuxArm64Test by getting {
-            dependsOn(nativeMain)
-            dependsOn(nativeTest)
-        }
-        val linuxArm32HfpTest by getting {
-            dependsOn(nativeMain)
-            dependsOn(nativeTest)
-        }
-        val linuxX64Test by getting {
-            dependsOn(nativeMain)
-            dependsOn(nativeTest)
-        }
-
-        if (isMac) {
-            val iosArm64Main by getting {
-                dependsOn(nativeMain)
+        for (target in linuxTargets + darwinTargets) {
+            val main by target.compilations.getting {
+                defaultSourceSet {
+                    dependsOn(nativeMain)
+                }
             }
 
-            val iosArm64Test by getting {
-                dependsOn(iosArm64Main)
-                dependsOn(nativeTest)
-            }
-
-            val iosArm32Main by getting {
-                dependsOn(nativeMain)
-            }
-
-            val iosArm32Test by getting {
-                dependsOn(iosArm32Main)
-                dependsOn(nativeTest)
-            }
-
-            val iosX64Main by getting {
-                dependsOn(nativeMain)
-            }
-
-            val iosX64Test by getting {
-                dependsOn(iosX64Main)
-                dependsOn(nativeTest)
+            val test by target.compilations.getting {
+                defaultSourceSet {
+                    dependsOn(nativeMain)
+                    dependsOn(main.defaultSourceSet)
+                }
             }
         }
     }
