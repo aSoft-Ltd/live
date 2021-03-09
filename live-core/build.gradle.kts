@@ -9,6 +9,7 @@ kotlin {
     multiplatformLib(withJava = true)
     val isMac = System.getenv("MACHINE") == "mac"
     val darwinTargets = if (isMac) listOf(
+        macosX64(),
         iosArm64(),
         iosArm32(),
         iosX64(),
