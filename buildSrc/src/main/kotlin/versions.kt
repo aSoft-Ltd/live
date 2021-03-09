@@ -3,7 +3,7 @@ object vers {
     val nexus_staging = "0.22.0"
 
     object asoft {
-        val live = "0.0.14"
+        val live = "0.0.15"
         val test = "1.1.10"
         val builders = "1.3.0"
         val expect = "0.0.20"
