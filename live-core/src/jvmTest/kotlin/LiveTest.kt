@@ -1,5 +1,4 @@
 import live.Live
-import live.LiveCallback
 import kotlin.test.Test
 
 class LiveTestJvm {

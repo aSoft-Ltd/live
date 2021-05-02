@@ -15,7 +15,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "live"
+rootProject.name = "live-kotlin"
 
 include(":live-core")
 include(":live-react")
