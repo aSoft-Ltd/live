@@ -11,7 +11,7 @@ kotlin {
         val main by getting {
             dependencies {
                 api(project(":live-core"))
-                api("org.jetbrains:kotlin-react:${vers.wrappers.react}")
+                api(asoft("reakt-core", vers.asoft.reakt))
             }
         }
         val test by getting {
