@@ -1,3 +1,7 @@
+# 0.0.20 : 2021.05.02
+
+- Added kotlin 1.5.0 support
+
 # 0.0.15 : 2021.02.09
 
 - Added macos targets
