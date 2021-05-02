@@ -6,9 +6,9 @@ plugins {
 }
 
 kotlin {
-    multiplatformLib(withJava = true)
-    val isMac = System.getenv("MACHINE") == "mac"
-    val darwinTargets = if (isMac) listOf(
+    jvm { library(); withJava() }
+    js(IR) { library() }
+    val darwinTargets = listOf(
         macosX64(),
         iosArm64(),
         iosArm32(),
@@ -18,7 +18,7 @@ kotlin {
         watchosX86(),
         tvosArm64(),
         tvosX64()
-    ) else emptyList()
+    )
 
     val linuxTargets = listOf(
         linuxArm64(),

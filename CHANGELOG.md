@@ -1,3 +1,7 @@
+# 0.0.30 : 2021.05.02
+
+- Corrected documentation
+
 # 0.0.20 : 2021.05.02
 
 - Added kotlin 1.5.0 support
