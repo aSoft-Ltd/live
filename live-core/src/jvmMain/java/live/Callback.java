@@ -1,5 +1,5 @@
 package live;
 
-public interface LiveCallback<T> {
+public interface Callback<T> {
     void execute(T value);
 }

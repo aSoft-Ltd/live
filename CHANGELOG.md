@@ -1,3 +1,10 @@
+# 0.0.31 : 2021.08.04
+
+- Updated kotlin from 1.4.32 to 1.5.10
+- Updated expect from 0.0.30 to 0.0.42
+- Removed test as a dependency
+- Updated builders from 1.3.30 to 1.3.42
+
 # 0.0.30 : 2021.05.02
 
 - Corrected documentation

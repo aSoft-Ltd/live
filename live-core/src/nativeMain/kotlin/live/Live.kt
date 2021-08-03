@@ -1,5 +1,7 @@
 package live
 
+import kotlinx.atomic.collections.mutableAtomicListOf
+
 actual class Live<T> actual constructor(v: T) {
     actual var value: T = v
         set(value) {
@@ -7,7 +9,7 @@ actual class Live<T> actual constructor(v: T) {
             for (watcher in watchers) watcher.callable(value)
         }
 
-    private val watchers = mutableListOf<Watcher<T>>()
+    private val watchers = mutableAtomicListOf<Watcher<T>>()
 
     actual fun watch(callable: (T) -> Unit): Watcher<T> = watch(watchers, callable)
 

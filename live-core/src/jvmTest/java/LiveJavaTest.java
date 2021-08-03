@@ -1,6 +1,6 @@
 import live.Live;
 import live.Watcher;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LiveJavaTest {
 
