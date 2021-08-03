@@ -12,7 +12,7 @@ actual class Live<T> actual constructor(v: T) {
     @JvmSynthetic
     actual fun watch(callable: (T) -> Unit): Watcher<T> = watch(watchers, callable)
 
-    fun watch(callable: LiveCallback<T>): Watcher<T> = watch(watchers, callable::execute)
+    fun watch(callable: Callback<T>): Watcher<T> = watch(watchers, callable::execute)
 
     actual fun stop(watcher: Watcher<T>) = watchers.remove(watcher)
 

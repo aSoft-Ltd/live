@@ -8,49 +8,22 @@ plugins {
 kotlin {
     jvm { library(); withJava() }
     js(IR) { library() }
-    val darwinTargets = listOf(
-        macosX64(),
-        iosArm64(),
-        iosArm32(),
-        iosX64(),
-        watchosArm32(),
-        watchosArm64(),
-        watchosX86(),
-        tvosArm64(),
-        tvosX64()
-    )
-
-    val linuxTargets = listOf(
-        linuxArm64(),
-        linuxArm32Hfp(),
-        linuxX64()
-    )
+    val nativeTargets = nativeTargets(true)
 
     sourceSets {
         val commonMain by getting {}
 
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
-
-        val jvmTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(kotlin("test-junit"))
-            }
-        }
-
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test-js"))
+                implementation(asoft("expect-core", vers.asoft.expect))
             }
         }
 
         val nativeMain by creating {
             dependsOn(commonMain)
+            dependencies {
+                api(asoft("kotlinx-atomic-collections", vers.asoft.collections))
+            }
         }
 
         val nativeTest by creating {
@@ -58,7 +31,7 @@ kotlin {
             dependsOn(commonTest)
         }
 
-        for (target in linuxTargets + darwinTargets) {
+        for (target in nativeTargets) {
             val main by target.compilations.getting {
                 defaultSourceSet {
                     dependsOn(nativeMain)
