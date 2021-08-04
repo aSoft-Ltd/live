@@ -1,3 +1,6 @@
+# 0.0.32: 2021.08.04
+- Fixed invalid mutability exception for native targets
+
 # 0.0.31 : 2021.08.04
 
 - Updated kotlin from 1.4.32 to 1.5.10
