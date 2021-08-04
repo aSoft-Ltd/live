@@ -16,7 +16,7 @@ and JavaScript) needs a lot of wrappers to work
 
 ```kotlin
 dependencies {
-    implementation("tz.co.asoft:live-core:0.0.30")
+    implementation("tz.co.asoft:live-core:0.0.32")
 }
 ```
 
@@ -32,11 +32,16 @@ watcher.stop() // or live.stop(watcher)
 live.value = 3 // console: 
 ```
 
+## Compatibility
+|Live Version|Kotlin Version|
+|------------|--------------|
+|0.0.32      | 1.5.10       |
+
 ### Note:
 
 this `Live<S>` should only be used in presentational layers. Its main purpose is to just change state for ui
 
-[badge-maven]: https://img.shields.io/maven-central/v/tz.co.asoft/live-core/0.0.30?style=flat
+[badge-maven]: https://img.shields.io/maven-central/v/tz.co.asoft/live-core/0.0.32?style=flat
 
 [badge-mpp]: https://img.shields.io/badge/kotlin-multiplatform-blue?style=flat
 
