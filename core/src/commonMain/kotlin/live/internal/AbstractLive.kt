@@ -7,9 +7,12 @@ import live.WatchMode
 import live.Watcher
 import live.mutableLiveOf
 
-internal abstract class AbstractLive<out S> : Live<S> {
+internal abstract class AbstractLive<S> : Live<S> {
+
+    val mapQueue = mutableListOf<LiveQueueItem<S, Any?>>()
 
     protected abstract fun watchRaw(callback: ((state: S) -> Unit)?, mode: WatchMode?, executor: Executor?): Watcher
+
     override fun watch(callback: (state: S) -> Unit, mode: WatchMode, executor: Executor): Watcher = watchRaw(callback, mode, executor)
 
     override fun watch(callback: (state: S) -> Unit, mode: WatchMode): Watcher = watchRaw(callback, mode, null)
@@ -28,7 +31,8 @@ internal abstract class AbstractLive<out S> : Live<S> {
 
     override fun <R> map(transformer: (S) -> R): Live<R> {
         val live = mutableLiveOf(transformer(value))
-        watch { live.value = transformer(it) }
+        val item = LiveQueueItem(live, transformer)
+        mapQueue.add(item as LiveQueueItem<S, Any?>)
         return live
     }
 }

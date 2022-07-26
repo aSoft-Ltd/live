@@ -9,11 +9,15 @@ internal class MutableLiveImpl<S>(state: S) : AbstractLive<S>(), MutableLive<S> 
         set(value) {
             field = value
             for (watcher in watchers) watcher.execute(value)
+            for (item in mapQueue) item.emit(value)
         }
 
     private val watchers = mutableListOf<WatcherImpl<S>>()
 
-    override fun stopAll() = watchers.clear()
+    override fun stopAll() {
+        watchers.clear()
+        mapQueue.clear()
+    }
 
     override fun watchRaw(callback: ((state: S) -> Unit)?, mode: WatchMode?, executor: Executor?): Watcher {
         val cb = callback ?: throw IllegalStateException("A callback to a live object must not be null or undefined")
