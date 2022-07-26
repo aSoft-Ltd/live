@@ -27,6 +27,6 @@ kotlin {
 }
 
 aSoftOSSLibrary(
-    version = asoft.versions.stdlib.get(),
+    version = asoft.versions.root.get(),
     description = "An multiplatform representation of a Live<T> object"
 )

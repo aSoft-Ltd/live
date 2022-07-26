@@ -23,5 +23,6 @@ kotlin {
 }
 
 aSoftOSSLibrary(
-    version = asoft.versions.stdlib.get(), description = "An extension of the Live<T> targeted for react"
+    version = asoft.versions.root.get(),
+    description = "An extension of the Live<T> targeted for react"
 )
