@@ -3,14 +3,73 @@ package live.internal
 import koncurrent.Executor
 import koncurrent.SynchronousExecutor
 import live.*
+import kotlin.math.max
+import kotlin.math.min
 
-internal class MutableLiveImpl<S>(state: S) : AbstractLive<S>(), MutableLive<S> {
+internal class MutableLiveImpl<S>(
+    state: S,
+    capacity: Int
+) : AbstractLive<S>(), MutableLive<S> {
+
+    private val capacity: Int = if (capacity < 0) 0 else capacity
+
+    override val history = mutableListOf<S>()
+
+    private var historyCursor = 0
+
     override var value: S = state
         set(value) {
+            archiveToHistory(field)
             field = value
-            for (watcher in watchers) watcher.execute(value)
-            for (item in mapQueue) item.emit(value)
+            dispatch(value)
         }
+
+    private fun archiveToHistory(v: S) {
+        while (history.size > 0 && history.size > capacity) {
+            history.removeAt(0)
+        }
+        if (historyCursor == 0) {
+            if (history.size == capacity) {
+                history.removeAt(0)
+            }
+            history.add(v)
+        }
+    }
+
+    private fun dispatch(value: S) {
+        for (watcher in watchers) watcher.execute(value)
+        for (item in mapQueue) item.emit(value)
+    }
+
+    override fun undo() {
+        if (history.size > 0 && historyCursor <= capacity) {
+            historyCursor++
+            val historyIndex = max(0, history.size - historyCursor)
+            val v = history[historyIndex]
+            if (historyCursor == 1) {
+                historyCursor++
+                history.add(value)
+            }
+            value = v
+        }
+    }
+
+    override fun redo() {
+        if (history.size > 0 && historyCursor > 0) {
+            historyCursor--
+            val historyIndex = min(history.size - 1, history.size - historyCursor)
+            val v = history[historyIndex]
+            var historyCursorHasBeenIncremented = false
+            if (historyCursor == 0) {
+                historyCursorHasBeenIncremented = true
+                historyCursor++
+            }
+            value = v
+            if (historyCursorHasBeenIncremented) {
+                historyCursor--
+            }
+        }
+    }
 
     private val watchers = mutableListOf<WatcherImpl<S>>()
 
@@ -28,4 +87,6 @@ internal class MutableLiveImpl<S>(state: S) : AbstractLive<S>(), MutableLive<S> 
         if (md == WatchMode.Eagerly) watcher.execute(value)
         return watcher
     }
+
+    override fun toString() = "Live(value=$value)"
 }

@@ -1,4 +1,4 @@
-@file:Suppress("NON_EXPORTABLE_TYPE")
+@file:Suppress("NON_EXPORTABLE_TYPE", "WRONG_EXPORTED_DECLARATION")
 
 package live
 
@@ -15,6 +15,14 @@ import kotlin.jvm.JvmSynthetic
  */
 @JsExport
 interface Live<out S> {
+
+    /**
+     * A history of the past values in this object.
+     *
+     * Note: The current value will not be available in this list
+     */
+    @JsName("_ignore_history")
+    val history: List<S>
 
     val value: S
 
@@ -112,4 +120,8 @@ interface Live<out S> {
      * Stops all [Watcher]s from watching this [Live] [value]
      */
     fun stopAll()
+
+    companion object {
+        val HISTORY_CAPACITY = 10
+    }
 }

@@ -7,7 +7,7 @@ import live.WatchMode
 import live.Watcher
 import live.mutableLiveOf
 
-internal abstract class AbstractLive<S> : Live<S> {
+abstract class AbstractLive<S> : Live<S> {
 
     val mapQueue = mutableListOf<LiveQueueItem<S, Any?>>()
 

@@ -34,4 +34,4 @@ val tmp = 0
 rootProject.name = "live"
 
 // dependencies
-includeSubs("live", ".", "core", "coroutines", "react")
+includeSubs("live", ".", "core", "coroutines", "react","test")
