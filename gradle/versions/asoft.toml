@@ -1,5 +1,5 @@
 [versions]
-root = "2.0.0"
+root = "2.0.1"
 foundation = "1.5.2"
 
 [libraries]
@@ -16,8 +16,20 @@ kotlinx-browser = { module = "tz.co.asoft:kotlinx-browser", version.ref = "found
 kotlinx-collections-atomic = { module = "tz.co.asoft:kotlinx-collections-atomic", version.ref = "foundation" }
 kotlinx-collections-interoperable = { module = "tz.co.asoft:kotlinx-collections-interoperable", version.ref = "foundation" }
 
+live-core = { module = "tz.co.asoft:live-core", version.ref = "root" }
+live-compose = { module = "tz.co.asoft:live-compose", version.ref = "root" }
+live-coroutines = { module = "tz.co.asoft:live-coroutines", version.ref = "root" }
+live-react = { module = "tz.co.asoft:live-react", version.ref = "root" }
+live-test = { module = "tz.co.asoft:live-test", version.ref = "root" }
+
 logging-console = { module = "tz.co.asoft:logging-console", version.ref = "foundation" }
 logging-test-android = { module = "tz.co.asoft:logging-test-android", version.ref = "foundation" }
+
+viewmodel-core = { module = "tz.co.asoft:viewmodel-core", version.ref = "root" }
+viewmodel-compose = { module = "tz.co.asoft:viewmodel-compose", version.ref = "root" }
+viewmodel-coroutines = { module = "tz.co.asoft:viewmodel-coroutines", version.ref = "root" }
+viewmodel-react = { module = "tz.co.asoft:viewmodel-react", version.ref = "root" }
+viewmodel-test = { module = "tz.co.asoft:viewmodel-test", version.ref = "root" }
 
 [plugins]
 applikation = { id = "tz.co.asoft.applikation", version.ref = "foundation" }
