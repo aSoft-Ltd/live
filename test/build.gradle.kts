@@ -12,6 +12,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.liveCore)
+                api(asoft.expect.core)
             }
         }
 
