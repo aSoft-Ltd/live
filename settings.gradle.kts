@@ -30,8 +30,8 @@ fun includeSubs(base: String, path: String = base, vararg subs: String) {
     }
 }
 
-val tmp = 0
+val tmp = 1
 rootProject.name = "live"
 
 // dependencies
-includeSubs("live", ".", "core", "coroutines", "react","test")
+includeSubs("live", ".", "core", "coroutines", "react", "test")

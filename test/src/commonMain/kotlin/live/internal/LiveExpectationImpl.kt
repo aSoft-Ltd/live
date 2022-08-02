@@ -5,6 +5,7 @@ import expect.expect
 import live.Live
 import live.LiveExpectation
 import kotlin.math.sign
+import kotlin.reflect.KClass
 import kotlin.test.assertEquals
 
 class LiveExpectationImpl<out S>(
@@ -18,8 +19,8 @@ class LiveExpectationImpl<out S>(
             state, value.lastOrNull(),
             """
             
-        Expected ViewModel State : $state
-        Actual ViewModel State   : ${value.lastOrNull()}
+        Expected Live State : $state
+        Actual   Live State : ${value.lastOrNull()}
         ==================================
         
         """.trimIndent()
@@ -30,7 +31,7 @@ class LiveExpectationImpl<out S>(
         appendLine("\t${index + 1}. $s")
     }
 
-    private fun expectActualMessage(expecteds: List<S>, actuals: List<S>) = buildString {
+    private fun expectActualMessageForInstances(expecteds: List<S>, actuals: List<S>) = buildString {
         appendLine("State phases didn't match")
         appendLine()
         val diff = expecteds.size - actuals.size
@@ -48,10 +49,42 @@ class LiveExpectationImpl<out S>(
         }
     }
 
+    private fun expectActualMessageForTypes(expecteds: List<KClass<*>>, actuals: List<S>) = buildString {
+        appendLine("State phases didn't match")
+        appendLine()
+        val diff = expecteds.size - actuals.size
+        val zipped = when {
+            diff > 0 -> expecteds.zip(actuals + List(diff * diff.sign) { null })
+            diff < 0 -> (expecteds + List(diff * diff.sign) { null }).zip(actuals)
+            else -> expecteds.zip(actuals)
+        }
+        for (zx in zipped.indices) {
+            val (ex, ax) = zipped[zx]
+            appendLine("[Phase ${zx + 1}]" + if (ex?.simpleName != ax?.classOrNull()?.simpleName) " -> MISMATCH HERE" else "")
+            appendLine("\tExpected: ${ex?.simpleName ?: "NO EXPECTED STATE TYPE"}")
+            appendLine("\tActual  : ${ax?.toString() ?: "NO ACTUAL STATE"}")
+            appendLine()
+        }
+    }
+
     override fun toHaveGoneThrough(vararg states: @UnsafeVariance S): List<S> {
         assertEquals(
             states.toList().toString(), value.toString(),
-            expectActualMessage(states.toList(), value)
+            expectActualMessageForInstances(states.toList(), value)
+        )
+        return value
+    }
+
+    private fun S.classOrNull() = try {
+        this!!::class
+    } catch (_: Throwable) {
+        null
+    }
+
+    override fun toHaveGoneThrough(vararg states: KClass<*>): List<S> {
+        assertEquals(
+            states.toList().map { it.simpleName }.toString(), value.map { it.classOrNull()?.simpleName }.toString(),
+            expectActualMessageForTypes(states.toList(), value)
         )
         return value
     }
