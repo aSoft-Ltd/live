@@ -2,8 +2,8 @@ import expect.expect
 import expect.toBe
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.runTest
-import live.watchAsFlow
 import live.mutableLiveOf
+import live.toFlow
 import kotlin.test.Test
 
 class AsFlowTest {
@@ -20,7 +20,7 @@ class AsFlowTest {
         }
         try {
             withContext(scope.coroutineContext) {
-                live.watchAsFlow().collect {
+                live.toFlow().collect {
                     println(it)
                 }
             }

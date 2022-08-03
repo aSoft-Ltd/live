@@ -24,6 +24,8 @@ interface Live<out S> {
     @JsName("_ignore_history")
     val history: List<S>
 
+    val historyCapacity: Int
+
     val value: S
 
 

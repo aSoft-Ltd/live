@@ -27,5 +27,5 @@ kotlin {
 
 aSoftOSSLibrary(
     version = asoft.versions.root.get(),
-    description = "Bindings for Live<S> object to be used with coroutines"
+    description = "Bindings for Live<S> object to be used with kotlinx-coroutines"
 )

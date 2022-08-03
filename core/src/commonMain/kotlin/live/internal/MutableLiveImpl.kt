@@ -11,7 +11,7 @@ internal class MutableLiveImpl<S>(
     capacity: Int
 ) : AbstractLive<S>(), MutableLive<S> {
 
-    private val capacity: Int = if (capacity < 0) 0 else capacity
+    override val historyCapacity: Int = if (capacity < 0) 0 else capacity
 
     override val history = mutableListOf<S>()
 
@@ -25,11 +25,11 @@ internal class MutableLiveImpl<S>(
         }
 
     private fun archiveToHistory(v: S) {
-        while (history.size > 0 && history.size > capacity) {
+        while (history.size > 0 && history.size > historyCapacity) {
             history.removeAt(0)
         }
         if (historyCursor == 0) {
-            if (history.size == capacity) {
+            if (history.size == historyCapacity) {
                 history.removeAt(0)
             }
             history.add(v)
@@ -42,7 +42,7 @@ internal class MutableLiveImpl<S>(
     }
 
     override fun undo() {
-        if (history.size > 0 && historyCursor <= capacity) {
+        if (history.size > 0 && historyCursor <= historyCapacity) {
             historyCursor++
             val historyIndex = max(0, history.size - historyCursor)
             val v = history[historyIndex]
