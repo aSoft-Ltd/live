@@ -37,8 +37,12 @@ rootProject.name = "live"
 // dependencies
 if (System.getenv("INCLUDE_BUILD") == "true") {
     includeBuild("../functions")
+    includeBuild("../expect")
+    includeBuild("../koncurrent")
 } else {
     includeSubs("functions", "../functions", "core")
+    includeSubs("expect", "../expect", "core", "coroutines")
+    includeSubs("koncurrent-primitives", "../koncurrent/primitives", "core", "coroutines", "mock")
 }
 
 // submodules

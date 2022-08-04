@@ -1,6 +1,6 @@
 package live.internal
 
-import functions.Consumer
+import functions.Callback
 import functions.Function
 import koncurrent.Executor
 import live.Live
@@ -22,13 +22,13 @@ internal abstract class AbstractLive<S> : Live<S> {
 
     override fun watch(callback: (state: S) -> Unit, executor: Executor) = watchRaw(callback, null, executor)
 
-    override fun watch(consumer: Consumer<in S>) = watchRaw(consumer::accept, null, null)
+    override fun watch(Callback: Callback<S>) = watchRaw(Callback::invoke, null, null)
 
-    override fun watch(consumer: Consumer<in S>, executor: Executor) = watchRaw(consumer::accept, null, null)
+    override fun watch(Callback: Callback<S>, executor: Executor) = watchRaw(Callback::invoke, null, null)
 
-    override fun watch(consumer: Consumer<in S>, mode: WatchMode) = watchRaw(consumer::accept, null, null)
+    override fun watch(Callback: Callback<S>, mode: WatchMode) = watchRaw(Callback::invoke, null, null)
 
-    override fun watch(consumer: Consumer<in S>, mode: WatchMode, executor: Executor) = watchRaw(consumer::accept, mode, executor)
+    override fun watch(Callback: Callback<S>, mode: WatchMode, executor: Executor) = watchRaw(Callback::invoke, mode, executor)
 
     override fun <R> map(transformer: Function<S, R>): Live<R> = map(transformer::invoke)
 

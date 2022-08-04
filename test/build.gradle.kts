@@ -11,14 +11,22 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                if (System.getenv("INCLUDE_BUILD") == "true") {
+                    api(asoft.expect.core)
+                } else {
+                    api(project(":expect-core"))
+                }
                 api(projects.liveCore)
-                api(asoft.expect.core)
             }
         }
 
         val commonTest by getting {
             dependencies {
-                implementation(asoft.expect.coroutines)
+                if (System.getenv("INCLUDE_BUILD") == "true") {
+                    implementation(asoft.expect.coroutines)
+                } else {
+                    implementation(project(":expect-coroutines"))
+                }
             }
         }
     }
