@@ -35,4 +35,11 @@ val tmp = 1
 rootProject.name = "live"
 
 // dependencies
+if (System.getenv("INCLUDE_BUILD") == "true") {
+    includeBuild("../functions")
+} else {
+    includeSubs("functions", "../functions", "core")
+}
+
+// submodules
 includeSubs("live", ".", "core", "coroutines", "react", "test")

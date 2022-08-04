@@ -2,7 +2,8 @@
 
 package live
 
-import functions.Consumer
+import functions.Callback
+import functions.Function
 import koncurrent.Executor
 import live.WatchMode.Eagerly
 import live.WatchMode.Casually
@@ -24,6 +25,7 @@ interface Live<out S> {
     @JsName("_ignore_history")
     val history: List<S>
 
+    @JsName("_ignore_history_capacity")
     val historyCapacity: Int
 
     val value: S
@@ -32,7 +34,7 @@ interface Live<out S> {
     /**
      * Subscribes to this object, to get [Live] updates of the new [value]
      *
-     * @param [consumer] - The function to be executed when this [value] changes
+     * @param [Callback] - The function to be executed when this [value] changes
      *
      * @param [mode] - The subscription mode on how to get values
      * [mode] of how you would like to watch this value. It can be [Eagerly] or [Casually]
@@ -42,35 +44,35 @@ interface Live<out S> {
      * @return a [Watcher]
      */
     @JsName("_ignore_java_watch_with_mode_and_executor")
-    fun watch(consumer: Consumer<@UnsafeVariance S>, mode: WatchMode, executor: Executor): Watcher
+    fun watch(Callback: Callback<S>, mode: WatchMode, executor: Executor): Watcher
 
     /**
-     * Watch the value as it changes and be updated via a [consumer]
+     * Watch the value as it changes and be updated via a [Callback]
      *
      * [mode] of how you would like to watch this value. It can be [Eagerly] or [Casually]
      *
      * @return a [Watcher]
      */
     @JsName("_ignore_java_watch_with_mode")
-    fun watch(consumer: Consumer<@UnsafeVariance S>, mode: WatchMode): Watcher
+    fun watch(Callback: Callback<S>, mode: WatchMode): Watcher
 
     /**
-     * Watch the value as it changes and be updated via a [consumer]
+     * Watch the value as it changes and be updated via a [Callback]
      *
      * [executor] tells in which thread should the callback be fired from
      *
      * @return a [Watcher]
      */
     @JsName("_ignore_java_watch_with_executor")
-    fun watch(consumer: Consumer<@UnsafeVariance S>, executor: Executor): Watcher
+    fun watch(Callback: Callback<S>, executor: Executor): Watcher
 
     /**
-     * Watch the value as it changes and be updated via a [consumer]
+     * Watch the value as it changes and be updated via a [Callback]
      *
      * @return a [Watcher]
      */
     @JsName("_ignore_java_watch")
-    fun watch(consumer: Consumer<@UnsafeVariance S>): Watcher
+    fun watch(Callback: Callback<S>): Watcher
 
     /**
      * Watch the value as it changes and be updated via a [callback]
@@ -113,10 +115,15 @@ interface Live<out S> {
     @JvmSynthetic
     fun watch(callback: (state: S) -> Unit): Watcher
 
+
     /**
      * Transforms this live to another live
      */
+    @JvmSynthetic
     fun <R> map(transformer: (S) -> R): Live<R>
+
+    @JsName("_ignore_map")
+    fun <R> map(transformer: Function<S, R>): Live<R>
 
     /**
      * Stops all [Watcher]s from watching this [Live] [value]
@@ -124,6 +131,6 @@ interface Live<out S> {
     fun stopAll()
 
     companion object {
-        val HISTORY_CAPACITY = 10
+        val DEFAULT_HISTORY_CAPACITY = 10
     }
 }

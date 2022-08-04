@@ -21,6 +21,10 @@ public class JavaSyntaxTest {
     public void should_have_a_valid_syntax() {
         MutableLive<Integer> liveInt = MutableLive.of(1);
         final var value1 = new AtomicInteger(0);
+        liveInt.watch(x -> {
+            var p = x;
+            System.out.println(x);
+        });
         var watcher1 = liveInt.watch(x -> {
             value1.set(x);
             print(1, x);

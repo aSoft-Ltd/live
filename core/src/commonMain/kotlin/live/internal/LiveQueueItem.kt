@@ -2,8 +2,8 @@ package live.internal
 
 import live.MutableLive
 
-class LiveQueueItem<in I, O>(
-    val live: MutableLive<O>,
+internal class LiveQueueItem<in I, out O>(
+    val live: MutableLive<@UnsafeVariance O>,
     val transformer: (I) -> O
 ) {
     fun emit(value: I) {
