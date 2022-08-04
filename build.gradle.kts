@@ -25,9 +25,13 @@ allprojects {
     }
 
 //    if (System.getenv("INCLUDE_BUILD") == "true")
-    tasks.configureEach {
-        if (name.endsWith("MainKotlinMetadata")) {
-            enabled = false
+    afterEvaluate {
+        afterEvaluate {
+            tasks.configureEach {
+                if (name.endsWith("MainKotlinMetadata")) {
+                    enabled = false
+                }
+            }
         }
     }
 }
