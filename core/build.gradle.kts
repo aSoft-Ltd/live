@@ -13,25 +13,15 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                if (System.getenv("INCLUDE_BUILD") == "true") {
-                    api(asoft.functions.core)
-                    api(asoft.koncurrent.primitives.core)
-                } else {
-                    api(project(":functions-core"))
-                    api(project(":koncurrent-primitives-core"))
-                }
+                api(project(":functions-core"))
+                api(project(":koncurrent-primitives-core"))
             }
         }
 
         val commonTest by getting {
             dependencies {
-                if (System.getenv("INCLUDE_BUILD") == "true") {
-                    implementation(asoft.expect.coroutines)
-                    implementation(asoft.koncurrent.primitives.mock)
-                } else {
-                    implementation(project(":expect-coroutines"))
-                    implementation(project(":koncurrent-primitives-mock"))
-                }
+                implementation(project(":expect-coroutines"))
+                implementation(project(":koncurrent-primitives-mock"))
             }
         }
     }

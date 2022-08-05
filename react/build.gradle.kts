@@ -16,11 +16,7 @@ kotlin {
         }
         val test by getting {
             dependencies {
-                if (System.getenv("INCLUDE_BUILD") == "true") {
-                    implementation(asoft.expect.core)
-                } else {
-                    implementation(project(":expect-core"))
-                }
+                implementation(project(":expect-core"))
             }
         }
     }

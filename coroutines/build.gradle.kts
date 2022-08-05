@@ -12,11 +12,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                if (System.getenv("INCLUDE_BUILD") == "true") {
-                    api(asoft.koncurrent.primitives.coroutines)
-                } else {
-                    api(project(":koncurrent-primitives-coroutines"))
-                }
+                api(project(":koncurrent-primitives-coroutines"))
                 api(projects.liveCore)
                 api(kotlinx.coroutines.core)
             }

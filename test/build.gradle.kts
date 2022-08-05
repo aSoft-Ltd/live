@@ -12,11 +12,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                if (System.getenv("INCLUDE_BUILD") == "true") {
-                    api(asoft.expect.core)
-                } else {
-                    api(project(":expect-core"))
-                }
+                api(project(":expect-core"))
                 api(projects.liveCore)
             }
         }
