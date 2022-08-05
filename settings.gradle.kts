@@ -38,7 +38,6 @@ rootProject.name = "root"
 includeSubs("functions", "../functions", "core")
 includeSubs("expect", "../expect", "core", "coroutines")
 includeSubs("koncurrent-primitives", "../koncurrent/primitives", "core", "coroutines", "mock")
-includeSubs("koncurrent-later", "../koncurrent/later", "core", "coroutines", "test")
 
 // submodules
 includeSubs("live", ".", "core", "coroutines", "react", "test")
