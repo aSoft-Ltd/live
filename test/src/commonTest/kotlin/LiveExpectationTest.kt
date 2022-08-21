@@ -4,6 +4,13 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class LiveExpectationTest {
+
+    @Test
+    fun should_be_at_a_specific_state() {
+        val l = mutableLiveOf(5)
+        expect(l).toBeIn(5)
+    }
+
     @Test
     fun should_be_able_to_track_live_objects() {
         val l = mutableLiveOf(10)

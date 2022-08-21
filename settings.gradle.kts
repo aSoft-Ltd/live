@@ -5,6 +5,7 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 
     dependencyResolutionManagement {
@@ -40,4 +41,4 @@ includeSubs("expect", "../expect", "core", "coroutines")
 includeSubs("koncurrent-primitives", "../koncurrent/primitives", "core", "coroutines", "mock")
 
 // submodules
-includeSubs("live", ".", "core", "coroutines", "react", "test")
+includeSubs("live", ".", "core", "coroutines", "react", "test", "compose")

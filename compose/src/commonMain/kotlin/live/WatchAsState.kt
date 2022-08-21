@@ -3,10 +3,10 @@ package live
 import androidx.compose.runtime.*
 
 @Composable
-inline fun <S> Live<S>.watchAsState(): S {
+fun <S> Live<S>.watchAsState(): S {
     var state by remember { mutableStateOf(value) }
     DisposableEffect(this) {
-        val watcher = watch(WatchMode.CASUALLY) { state = it }
+        val watcher = watch(WatchMode.Casually) { state = it }
         onDispose { watcher.stop() }
     }
     return state

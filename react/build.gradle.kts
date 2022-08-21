@@ -14,11 +14,6 @@ kotlin {
                 api(kotlinw.react.core)
             }
         }
-        val test by getting {
-            dependencies {
-                implementation(project(":expect-core"))
-            }
-        }
     }
 }
 

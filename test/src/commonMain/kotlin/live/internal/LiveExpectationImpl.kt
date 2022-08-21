@@ -16,11 +16,11 @@ class LiveExpectationImpl<out S>(
 
     override fun toBeIn(state: @UnsafeVariance S) {
         assertEquals(
-            state, value.lastOrNull(),
+            state, live.value,
             """
             
         Expected Live State : $state
-        Actual   Live State : ${value.lastOrNull()}
+        Actual   Live State : ${live.value}
         ==================================
         
         """.trimIndent()
