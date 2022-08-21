@@ -12,7 +12,7 @@ import java.util.*
     alias(asoft.plugins.deploy)
 }
 
-// Increment this counter, when you just need to make a dispatch
+// Incrememnt this counter, when you just need to make a dispatch
 val dispatchCount = 4
 
 allprojects {
