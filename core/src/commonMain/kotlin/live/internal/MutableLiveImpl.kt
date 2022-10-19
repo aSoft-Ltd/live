@@ -36,7 +36,7 @@ internal class MutableLiveImpl<S>(
         }
     }
 
-    private fun dispatch(value: S) {
+    override fun dispatch(value: S) {
         for (watcher in watchers) watcher.execute(value)
         for (item in mapQueue) item.emit(value)
     }

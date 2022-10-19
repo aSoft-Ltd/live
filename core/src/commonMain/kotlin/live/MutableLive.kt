@@ -17,6 +17,11 @@ interface MutableLive<S> : Live<S> {
 
     fun redo()
 
+    /**
+     * Notify the watchers without changing the underlying value
+     */
+    fun dispatch(value: S = this.value)
+
     companion object {
         @JvmStatic
         @JvmOverloads
