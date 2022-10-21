@@ -38,7 +38,8 @@ rootProject.name = "asoft"
 // dependencies
 includeSubs("functions", "../functions", "core")
 includeSubs("expect", "../expect", "core", "coroutines")
+includeSubs("kollections", "../kollections", "interoperable")
 includeSubs("koncurrent-primitives", "../koncurrent/primitives", "core", "coroutines", "mock")
 
 // submodules
-includeSubs("live", ".", "core", "coroutines", "react", "test", "compose")
+includeSubs("live", ".", "core", "kollections", "coroutines", "react", "test", "compose")

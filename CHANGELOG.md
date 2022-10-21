@@ -1,3 +1,6 @@
+# Next
+- Added a `LiveMap` and a `MutableLiveMap` implementation
+
 # 0.0.32: 2021.08.04
 - Fixed invalid mutability exception for native targets
 
