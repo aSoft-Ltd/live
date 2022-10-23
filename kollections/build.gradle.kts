@@ -19,10 +19,7 @@ kotlin {
     js(IR) {
         library()
     }
-    macosArm64()
-    macosX64()
-    iosArm64()
-    iosX64()
+    linuxTargets(true)
 
     sourceSets {
         val commonMain by getting {
