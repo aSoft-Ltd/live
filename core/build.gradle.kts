@@ -8,10 +8,10 @@ kotlin {
     jvm { library(); withJava() }
     js(IR) { library() }
 //    val nativeTargets = nativeTargets(true)
-    macosArm64()
-    macosX64()
-    iosArm64()
-    iosX64()
+//    macosArm64()
+//    macosX64()
+//    iosArm64()
+//    iosX64()
     val nativeTargets = linuxTargets(true)
 
     sourceSets {
