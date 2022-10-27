@@ -17,9 +17,7 @@ kotlin {
     jvm {
         library()
     }
-    js(IR) {
-        library()
-    }
+    // js(IR) { library() }
     // macosArm64()
     // macosX64()
     // iosArm64()
