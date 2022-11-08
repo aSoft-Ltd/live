@@ -2,11 +2,7 @@
 
 package live
 
-import functions.Callback
 import functions.Function
-import koncurrent.Executor
-import live.WatchMode.Eagerly
-import live.WatchMode.Casually
 import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmSynthetic
@@ -15,7 +11,7 @@ import kotlin.jvm.JvmSynthetic
  * A wrapper around a [value] that can be watched as it changes
  */
 @JsExport
-interface Live<out S> {
+interface Live<out S> : Watchable<S> {
 
     /**
      * A history of the past values in this object.
@@ -28,93 +24,10 @@ interface Live<out S> {
     @JsName("_ignore_history_capacity")
     val historyCapacity: Int
 
-    val value: S
-
-
     /**
-     * Subscribes to this object, to get [Live] updates of the new [value]
-     *
-     * @param [Callback] - The function to be executed when this [value] changes
-     *
-     * @param [mode] - The subscription mode on how to get values
-     * [mode] of how you would like to watch this value. It can be [Eagerly] or [Casually]
-     *
-     * [executor] tells in which thread should the callback be fired from
-     *
-     * @return a [Watcher]
+     * The current [value] of the [Live] object
      */
-    @JsName("_ignore_java_watch_with_mode_and_executor")
-    fun watch(Callback: Callback<S>, mode: WatchMode, executor: Executor): Watcher
-
-    /**
-     * Watch the value as it changes and be updated via a [Callback]
-     *
-     * [mode] of how you would like to watch this value. It can be [Eagerly] or [Casually]
-     *
-     * @return a [Watcher]
-     */
-    @JsName("_ignore_java_watch_with_mode")
-    fun watch(Callback: Callback<S>, mode: WatchMode): Watcher
-
-    /**
-     * Watch the value as it changes and be updated via a [Callback]
-     *
-     * [executor] tells in which thread should the callback be fired from
-     *
-     * @return a [Watcher]
-     */
-    @JsName("_ignore_java_watch_with_executor")
-    fun watch(Callback: Callback<S>, executor: Executor): Watcher
-
-    /**
-     * Watch the value as it changes and be updated via a [Callback]
-     *
-     * @return a [Watcher]
-     */
-    @JsName("_ignore_java_watch")
-    fun watch(Callback: Callback<S>): Watcher
-
-    /**
-     * Watch the value as it changes and be updated via a [callback]
-     *
-     * [mode] of how you would like to watch this value. It can be [Eagerly] or [Casually]
-     *
-     * @return a [Watcher]
-     */
-    @JsName("watchWithModeAndExecutor")
-    @JvmSynthetic
-    fun watch(callback: (state: S) -> Unit, mode: WatchMode, executor: Executor): Watcher
-
-    /**
-     * Watch the value as it changes and be updated via a [callback]
-     *
-     * [executor] tells in which thread should the callback be fired from
-     *
-     * @return a [Watcher]
-     */
-    @JsName("watchWithExecutor")
-    @JvmSynthetic
-    fun watch(callback: (state: S) -> Unit, executor: Executor): Watcher
-
-    /**
-     * Watch the value as it changes and be updated via a [callback]
-     *
-     * [mode] of how you would like to watch this value. It can be [Eagerly] or [Casually]
-     *
-     * @return a [Watcher]
-     */
-    @JsName("watchWithMode")
-    @JvmSynthetic
-    fun watch(callback: (state: S) -> Unit, mode: WatchMode): Watcher
-
-    /**
-     * Watch the value as it changes and be updated via a [callback]
-     *
-     * @return a [Watcher]
-     */
-    @JvmSynthetic
-    fun watch(callback: (state: S) -> Unit): Watcher
-
+    override val value: S
 
     /**
      * Transforms this live to another live

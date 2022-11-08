@@ -1,5 +1,7 @@
 # Next
-- Added a `LiveMap` and a `MutableLiveMap` implementation
+## Added
+- Watchable interface to ease maintainability
+- `LiveMap` and a `MutableLiveMap` to easily observe Map/Table like datasctructures
 
 # 0.0.32: 2021.08.04
 - Fixed invalid mutability exception for native targets

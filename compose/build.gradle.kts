@@ -17,7 +17,7 @@ kotlin {
     jvm {
         library()
     }
-    // js(IR) { library() }
+    js(IR) { library() }
     // macosArm64()
     // macosX64()
     // iosArm64()
@@ -45,5 +45,5 @@ kotlin {
 
 aSoftOSSLibrary(
     version = asoft.versions.root.get(),
-	description = "Bindings for Live<S> object to be used with compose"
+    description = "Bindings for Live<S> object to be used with compose"
 )
