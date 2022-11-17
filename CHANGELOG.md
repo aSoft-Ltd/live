@@ -1,4 +1,8 @@
 # Next
+## Fixed
+- Live values with zero history capacity crash
+
+-----------
 ## Added
 - Watchable interface to ease maintainability
 - `LiveMap` and a `MutableLiveMap` to easily observe Map/Table like datasctructures

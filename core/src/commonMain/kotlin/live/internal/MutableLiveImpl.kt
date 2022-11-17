@@ -7,11 +7,10 @@ import kotlin.math.max
 import kotlin.math.min
 
 internal class MutableLiveImpl<S>(
-    state: S,
-    capacity: Int
+    state: S, capacity: Int
 ) : AbstractLive<S>(), MutableLive<S> {
 
-    override val historyCapacity: Int = if (capacity < 0) 0 else capacity
+    override val historyCapacity: Int = if (capacity <= 0) 0 else capacity
 
     override val history = mutableListOf<S>()
 
@@ -19,7 +18,7 @@ internal class MutableLiveImpl<S>(
 
     override var value: S = state
         set(value) {
-            archiveToHistory(field)
+            if (historyCapacity > 0) archiveToHistory(field)
             field = value
             dispatch(value)
         }

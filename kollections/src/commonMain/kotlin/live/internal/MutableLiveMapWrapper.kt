@@ -19,6 +19,8 @@ internal class MutableLiveMapWrapper<K, V>(
 
     override fun get(key: K): V? = live.value[key]
 
+    override fun getValue(key: K): V = live.value.getValue(key)
+
     override val entries get() = live.value.toMutableMap().entries
 
     override fun isEmpty(): Boolean = live.value.isEmpty()
