@@ -1,4 +1,6 @@
 # Next
+---------------
+# Next
 ## Fixed
 - Live values with zero history capacity crash
 
