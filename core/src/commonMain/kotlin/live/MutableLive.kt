@@ -3,10 +3,13 @@
 
 package live
 
+import functions.Function
 import live.internal.MutableLiveImpl
 import kotlin.js.JsExport
+import kotlin.js.JsName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
+import kotlin.jvm.JvmSynthetic
 
 interface MutableLive<S> : Live<S> {
     override val history: MutableList<S>
@@ -16,6 +19,14 @@ interface MutableLive<S> : Live<S> {
     fun undo()
 
     fun redo()
+
+    /**
+     * Transforms this live to another live
+     */
+    @JvmSynthetic
+    override fun <R> map(transformer: (S) -> R): MutableLive<R>
+
+    override fun <R> map(transformer: Function<S, R>): MutableLive<R>
 
     /**
      * Notify the watchers without changing the underlying value
