@@ -2,7 +2,7 @@
 
 package live
 
-import functions.Function
+import functions.Function1IO
 import kotlin.js.JsExport
 import kotlin.js.JsName
 import kotlin.jvm.JvmSynthetic
@@ -36,7 +36,7 @@ interface Live<out S> : Watchable<S> {
     fun <R> map(transformer: (S) -> R): Live<R>
 
     @JsName("_ignore_map")
-    fun <R> map(transformer: Function<S, R>): Live<R>
+    fun <R> map(transformer: Function1IO<S, R>): Live<R>
 
     /**
      * Stops all [Watcher]s from watching this [Live] [value]

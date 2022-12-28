@@ -1,13 +1,10 @@
 package live.internal
 
 import functions.Callback
-import functions.Function
 import koncurrent.Executor
-import live.Live
 import live.WatchMode
 import live.Watchable
 import live.Watcher
-import live.mutableLiveOf
 
 internal abstract class AbstractWatchable<out S> : Watchable<S> {
 

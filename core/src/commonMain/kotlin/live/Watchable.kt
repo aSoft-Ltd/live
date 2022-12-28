@@ -3,7 +3,6 @@
 package live
 
 import functions.Callback
-import functions.Function
 import koncurrent.Executor
 import live.WatchMode.Eagerly
 import live.WatchMode.Casually

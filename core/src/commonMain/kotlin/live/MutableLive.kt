@@ -3,10 +3,9 @@
 
 package live
 
-import functions.Function
+import functions.Function1IO
 import live.internal.MutableLiveImpl
 import kotlin.js.JsExport
-import kotlin.js.JsName
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 import kotlin.jvm.JvmSynthetic
@@ -26,7 +25,7 @@ interface MutableLive<S> : Live<S> {
     @JvmSynthetic
     override fun <R> map(transformer: (S) -> R): MutableLive<R>
 
-    override fun <R> map(transformer: Function<S, R>): MutableLive<R>
+    override fun <R> map(transformer: Function1IO<S, R>): MutableLive<R>
 
     /**
      * Notify the watchers without changing the underlying value
