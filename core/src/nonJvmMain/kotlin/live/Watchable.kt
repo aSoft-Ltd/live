@@ -1,17 +1,20 @@
+@file:JsExport
+@file:Suppress("NON_EXPORTABLE_TYPE")
+
 package live
 
 import koncurrent.Executor
 import live.WatchMode.Casually
 import live.WatchMode.Eagerly
+import kotlin.js.JsExport
 import kotlin.js.JsName
-import kotlin.jvm.JvmSynthetic
 
 /**
  * A wrapper around a [value] that can be watched as it changes
  */
-expect interface Watchable<out S> {
+actual interface Watchable<out S> {
 
-    val value: S
+    actual val value: S
 
     /**
      * Watch the value as it changes and be updated via a [callback]
@@ -21,19 +24,7 @@ expect interface Watchable<out S> {
      * @return a [Watcher]
      */
     @JsName("watchWithModeAndExecutor")
-    @JvmSynthetic
-    fun watch(callback: (state: S) -> Unit, mode: WatchMode, executor: Executor): Watcher
-
-    /**
-     * Watch the value as it changes and be updated via a [callback]
-     *
-     * [executor] tells in which thread should the callback be fired from
-     *
-     * @return a [Watcher]
-     */
-    @JsName("watchWithExecutor")
-    @JvmSynthetic
-    fun watch(callback: (state: S) -> Unit, executor: Executor): Watcher
+    actual fun watch(callback: (state: S) -> Unit, mode: WatchMode, executor: Executor): Watcher
 
     /**
      * Watch the value as it changes and be updated via a [callback]
@@ -43,14 +34,22 @@ expect interface Watchable<out S> {
      * @return a [Watcher]
      */
     @JsName("watchWithMode")
-    @JvmSynthetic
-    fun watch(callback: (state: S) -> Unit, mode: WatchMode): Watcher
+    actual fun watch(callback: (state: S) -> Unit, mode: WatchMode): Watcher
+
+    /**
+     * Watch the value as it changes and be updated via a [callback]
+     *
+     * [executor] tells in which thread should the callback be fired from
+     *
+     * @return a [Watcher]
+     */
+    @JsName("watchWithExecutor")
+    actual fun watch(callback: (state: S) -> Unit, executor: Executor): Watcher
 
     /**
      * Watch the value as it changes and be updated via a [callback]
      *
      * @return a [Watcher]
      */
-    @JvmSynthetic
-    fun watch(callback: (state: S) -> Unit): Watcher
+    actual fun watch(callback: (state: S) -> Unit): Watcher
 }

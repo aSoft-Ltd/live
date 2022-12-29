@@ -4,13 +4,14 @@
 
 package live
 
+import live.internal.DEFAULT_HISTORY_CAPACITY
 import live.internal.MutableLiveImpl
 import kotlin.js.JsExport
 import kotlin.jvm.JvmName
 
 fun <S> mutableLiveOf(
     value: S,
-    capacity: Int = Live.DEFAULT_HISTORY_CAPACITY
+    capacity: Int = DEFAULT_HISTORY_CAPACITY
 ): MutableLive<S> = MutableLiveImpl(value, capacity)
 
 fun <S> liveOf(

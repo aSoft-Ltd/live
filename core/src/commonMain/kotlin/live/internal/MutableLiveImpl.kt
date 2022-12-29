@@ -2,7 +2,9 @@ package live.internal
 
 import koncurrent.Executor
 import koncurrent.SynchronousExecutor
-import live.*
+import live.MutableLive
+import live.WatchMode
+import live.Watcher
 import kotlin.math.max
 import kotlin.math.min
 
@@ -39,6 +41,8 @@ internal class MutableLiveImpl<S>(
         for (watcher in watchers) watcher.execute(value)
         for (item in mapQueue) item.emit(value)
     }
+
+    override fun dispatch() = dispatch(value)
 
     override fun undo() {
         if (history.size > 0 && historyCursor <= historyCapacity) {

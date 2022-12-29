@@ -1,4 +1,5 @@
 import koncurrent.MockExecutors;
+import live.Live;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Executor;
@@ -18,7 +19,16 @@ public class JavaSyntaxTest {
     }
 
     @Test
-    public void should_have_a_valid_syntax() {
+    public void should_have_a_valid_syntax_for_live() {
+        Live<Integer> liveInt = MutableLive.of(4);
+        var watcher = liveInt.watch(p -> {
+            print(1, p);
+        });
+        watcher.stop();
+    }
+
+    @Test
+    public void should_have_a_valid_syntax_for_mutable_live() {
         MutableLive<Integer> liveInt = MutableLive.of(1);
         final var value1 = new AtomicInteger(0);
         liveInt.watch(x -> {

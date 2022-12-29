@@ -17,15 +17,29 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":functions-core"))
-                api(project(":koncurrent-primitives-core"))
+                api(projects.koncurrentPrimitivesCore)
             }
         }
 
         val commonTest by getting {
             dependencies {
-                implementation(project(":expect-coroutines"))
-                implementation(project(":koncurrent-primitives-mock"))
+                implementation(projects.expectCoroutines)
+                implementation(projects.koncurrentPrimitivesMock)
+            }
+        }
+
+        val nonJvmMain by creating {
+            dependsOn(commonMain)
+        }
+
+        val jsMain by getting {
+            dependsOn(nonJvmMain)
+        }
+
+        (nativeTargets).forEach {
+            val main by it.compilations.getting {}
+            main.defaultSourceSet {
+                dependsOn(nonJvmMain)
             }
         }
     }

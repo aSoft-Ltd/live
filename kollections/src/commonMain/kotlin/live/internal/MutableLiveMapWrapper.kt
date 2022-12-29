@@ -6,10 +6,11 @@ import live.MutableLiveMap
 import kotlin.collections.MutableMap as KMutableMap
 import kotlin.collections.Collection as KCollection
 import kotlin.collections.Map as KMap
+import kollections.internal.AbstractCollection
 
 internal class MutableLiveMapWrapper<K, V>(
     private val live: MutableLive<Map<K, V>>
-) : MutableLiveMap<K, V>, MutableLive<Map<K, V>> by live {
+) : AbstractCollection<MapEntry<K, V>>(), MutableLiveMap<K, V>, MutableLive<Map<K, V>> by live {
     override fun containsAll(elements: KCollection<MapEntry<K, V>>): Boolean = live.value.containsAll(elements)
 
     override val size get() = live.value.size
