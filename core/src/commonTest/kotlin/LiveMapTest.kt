@@ -1,6 +1,7 @@
 import expect.expect
 import live.mutableLiveOf
 import kotlin.test.Test
+import kotlin.test.fail
 
 class LiveMapTest {
 
@@ -45,5 +46,22 @@ class LiveMapTest {
         liveInt.value = 10
         expect(values[W1]).toBe("String: 5")
         expect(values[W2]).toBe("String: 7")
+    }
+
+    @Test
+    fun should_actually_map_from_one_value_to_the_second_value() {
+        val live = mutableLiveOf(1)
+        val livePlus = live.map { it + 1 }
+        val watcher1 = live.watch { println("Live: $it") }
+        val watcher2 = livePlus.watch { println("Plus: $it") }
+        live.value = 2
+        expect(livePlus.value).toBe(3)
+        live.value = 4
+        expect(livePlus.value).toBe(5)
+        watcher1.stop()
+        live.stopAll()
+        live.value = 6
+        expect(livePlus.value).toBe(5)
+        watcher2.stop()
     }
 }
