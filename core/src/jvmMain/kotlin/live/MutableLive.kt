@@ -1,8 +1,7 @@
 package live
 
-import functions.Function1I1R
+import functions.Function1
 import live.internal.DEFAULT_HISTORY_CAPACITY
-import live.internal.MutableLiveImpl
 import kotlin.jvm.JvmOverloads
 import kotlin.jvm.JvmStatic
 import kotlin.jvm.JvmSynthetic
@@ -22,7 +21,7 @@ actual interface MutableLive<S> : Live<S> {
     @JvmSynthetic
     actual override fun <R> map(transformer: (S) -> R): MutableLive<R>
 
-    override fun <R> map(transformer: Function1I1R<S, R>): MutableLive<R>
+    override fun <R> map(transformer: Function1<S, R>): MutableLive<R>
 
     /**
      * Notify the watchers without changing the underlying value

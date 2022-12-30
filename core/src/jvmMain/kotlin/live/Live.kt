@@ -2,7 +2,7 @@
 
 package live
 
-import functions.Function1I1R
+import functions.Function1
 import kotlin.jvm.JvmSynthetic
 
 /**
@@ -30,7 +30,7 @@ actual interface Live<out S> : Watchable<S> {
     @JvmSynthetic
     actual fun <R> map(transformer: (S) -> R): Live<R>
 
-    fun <R> map(transformer: Function1I1R<S, R>): Live<R>
+    fun <R> map(transformer: Function1<S, R>): Live<R>
 
     /**
      * Stops all [Watcher]s from watching this [Live] [value]
