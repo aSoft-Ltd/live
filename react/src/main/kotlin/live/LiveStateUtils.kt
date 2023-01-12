@@ -7,4 +7,4 @@ import useNullableLiveWithExecutor
 
 inline fun <S> Live<S>.watchAsState(executor: Executor = SynchronousExecutor) = useLiveWithExecutor(this, executor)
 
-inline fun <S> Live<S>?.watchAsState(executor: Executor = SynchronousExecutor) = useNullableLiveWithExecutor(this, executor)
+inline fun <S> Live<S>?.watchAsState(executor: Executor = SynchronousExecutor) = useNullableLiveWithExecutor(executor, this)
