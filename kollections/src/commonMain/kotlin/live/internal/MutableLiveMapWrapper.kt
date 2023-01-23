@@ -15,6 +15,7 @@ import kollections.toIMutableSet
 import live.MutableLive
 import live.MutableLiveMap
 
+@PublishedApi
 internal class MutableLiveMapWrapper<K, V>(
     private val live: MutableLive<Map<K, V>>
 ) : AbstractLiveCollection<MapEntry<K, V>>(live), MutableLiveMap<K, V>, MutableLive<Map<K, V>> by live {

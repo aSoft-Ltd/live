@@ -8,9 +8,10 @@ import kollections.toIMutableList
 import live.MutableLive
 import live.MutableLiveList
 
+@PublishedApi
 internal class MutableLiveListWrapper<E>(
     private val live: MutableLive<List<E>>
-) : AbstractLiveCollection<E>(live), MutableLiveList<E>, MutableLive<List<E>> by live, List<E> by live.value {
+) : AbstractLiveCollection<E>(live), MutableLiveList<E>, MutableLive<List<E>> by live {
 
     override fun iterator() = live.value.toMutableList().iterator()
 

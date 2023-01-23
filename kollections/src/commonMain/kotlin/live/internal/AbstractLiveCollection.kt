@@ -4,6 +4,7 @@ import kollections.Collection
 import kollections.internal.AbstractCollection
 import live.Live
 
+@PublishedApi
 internal abstract class AbstractLiveCollection<E>(
     private val live: Live<Collection<E>>
 ) : AbstractCollection<E>(), Collection<E> by live.value {
