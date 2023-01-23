@@ -3,10 +3,10 @@
 
 package live
 
-import kollections.Map
+import kollections.MutableMap
+import kollections.MutableMapLike
 import kotlin.js.JsExport
 
-interface MutableLiveMap<K, V> : MutableLive<Map<K, V>>, LiveMap<K, V> {
-    operator fun set(key: K, value: V): V?
-    fun remove(key: K): V?
+interface MutableLiveMap<K, V> : MutableMapLike<K, V>, LiveMap<K, V> {
+    fun <R> update(block: (MutableMap<K, V>) -> R): R
 }
