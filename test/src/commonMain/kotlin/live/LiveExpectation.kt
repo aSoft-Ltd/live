@@ -9,5 +9,5 @@ interface LiveExpectation<out S> : CollectionExpectation<S> {
 
     fun toHaveGoneThrough(vararg states: @UnsafeVariance S): List<S>
 
-    fun toHaveGoneThrough(vararg states: KClass<*>): List<S>
+    fun toHaveGoneThrough(vararg states: KClass<out Any>): List<S>
 }

@@ -49,7 +49,7 @@ class LiveExpectationImpl<out S>(
         }
     }
 
-    private fun expectActualMessageForTypes(expecteds: List<KClass<*>>, actuals: List<S>) = buildString {
+    private fun expectActualMessageForTypes(expecteds: List<KClass<out Any>>, actuals: List<S>) = buildString {
         appendLine("State phases didn't match")
         appendLine()
         val diff = expecteds.size - actuals.size
@@ -60,9 +60,10 @@ class LiveExpectationImpl<out S>(
         }
         for (zx in zipped.indices) {
             val (ex, ax) = zipped[zx]
-            appendLine("[Phase ${zx + 1}]" + if (ex?.simpleName != ax?.classOrNull()?.simpleName) " -> MISMATCH HERE" else "")
+            val mismatch = ex != ax?.classOrNull()
+            appendLine("[Phase ${zx + 1}]" + if (mismatch) " -> MISMATCH HERE" else "")
             appendLine("\tExpected: ${ex?.simpleName ?: "NO EXPECTED STATE TYPE"}")
-            appendLine("\tActual  : ${ax?.toString() ?: "NO ACTUAL STATE"}")
+            appendLine("\tActual  : ${ax?.classOrNull()?.toString() ?: "NO ACTUAL STATE"}")
             appendLine()
         }
     }
@@ -81,9 +82,9 @@ class LiveExpectationImpl<out S>(
         null
     }
 
-    override fun toHaveGoneThrough(vararg states: KClass<*>): List<S> {
+    override fun toHaveGoneThrough(vararg states: KClass<out Any>): List<S> {
         assertEquals(
-            states.toList().map { it.simpleName }.toString(), value.map { it.classOrNull()?.simpleName }.toString(),
+            states.toList().map { it.simpleName }, value.map { it.classOrNull()?.simpleName },
             expectActualMessageForTypes(states.toList(), value)
         )
         return value
