@@ -7,6 +7,7 @@ import kollections.MapEntry
 import kollections.iListOf
 import kollections.iMapOf
 import kollections.iSetOf
+import kollections.toISet
 import live.internal.MutableLiveListWrapper
 import live.internal.MutableLiveMapWrapper
 import live.internal.MutableLiveSetWrapper
@@ -21,8 +22,11 @@ fun <E> mutableLiveListOf(vararg elements: E): MutableLiveList<E> = MutableLiveL
 
 
 // ----------------------------------- MutableLiveSet constructors ----------------------------------
-@JsName("emptyMutableLiveSetOF")
+@JsName("emptyMutableLiveSetOf")
 fun <E> mutableLiveSetOf(): MutableLiveSet<E> = MutableLiveSetWrapper(mutableLiveOf(iSetOf()))
+
+@JsName("_ignore_mutableLiveSetOf")
+fun <E> mutableLiveSetOf(col: Collection<E>): MutableLiveSet<E> = MutableLiveSetWrapper(mutableLiveOf(col.toISet()))
 
 fun <E> mutableLiveSetOf(vararg elements: E): MutableLiveSet<E> = MutableLiveSetWrapper(mutableLiveOf(iSetOf(*elements)))
 
