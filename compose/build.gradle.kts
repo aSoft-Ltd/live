@@ -1,6 +1,7 @@
 import org.jetbrains.compose.compose
+import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
 
-@Suppress("DSL_SCOPE_VIOLATION") plugins {
+plugins {
     id("org.jetbrains.compose")
     kotlin("multiplatform")
     id("tz.co.asoft.library")
@@ -23,16 +24,6 @@ kotlin {
     // iosArm64()
     // iosX64()
 
-    targets.all {
-        compilations.all {
-            kotlinOptions {
-                freeCompilerArgs += listOf(
-                    "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
-                )
-            }
-        }
-    }
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -40,8 +31,32 @@ kotlin {
                 api(compose.runtime)
             }
         }
+
+        val commonTest by getting {
+            dependencies {
+                implementation(projects.expectCore)
+            }
+        }
     }
 }
+
+compose {
+//    kotlinCompilerPlugin.set(dependencies.compiler.forKotlin("1.8.0"))
+    kotlinCompilerPlugin.set(kotlinz.versions.compose.compiler)
+    kotlinCompilerPluginArgs.add(kotlinz.versions.kotlin.map {
+        "suppressKotlinVersionCompatibilityCheck=$it"
+    })
+}
+
+tasks.withType(KotlinCompile::class).configureEach {
+    kotlinOptions {
+        val v = kotlinz.versions.kotlin.get()
+        freeCompilerArgs += listOf(
+            "-P", "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=$v"
+        )
+    }
+}
+
 
 aSoftOSSLibrary(
     version = asoft.versions.root.get(),
