@@ -1,5 +1,6 @@
 import org.jetbrains.compose.compose
 import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 
 plugins {
     id("org.jetbrains.compose")
@@ -41,14 +42,13 @@ kotlin {
 }
 
 compose {
-//    kotlinCompilerPlugin.set(dependencies.compiler.forKotlin("1.8.0"))
     kotlinCompilerPlugin.set(kotlinz.versions.compose.compiler)
     kotlinCompilerPluginArgs.add(kotlinz.versions.kotlin.map {
         "suppressKotlinVersionCompatibilityCheck=$it"
     })
 }
 
-tasks.withType(KotlinCompile::class).configureEach {
+tasks.withType(KotlinJsCompile::class).configureEach {
     kotlinOptions {
         val v = kotlinz.versions.kotlin.get()
         freeCompilerArgs += listOf(
@@ -56,7 +56,6 @@ tasks.withType(KotlinCompile::class).configureEach {
         )
     }
 }
-
 
 aSoftOSSLibrary(
     version = asoft.versions.root.get(),
